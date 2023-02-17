@@ -1,0 +1,311 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Shared/sand.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/chamber.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Shared/Chamber.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/UI/HUD.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Shared/World.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/World/Score.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Assets/Audio/game_song.mp3" type="AudioStream" id=8]
+[ext_resource path="res://Scenes/World/Cactus.tscn" type="PackedScene" id=9]
+
+[sub_resource type="Curve2D" id=6]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 320, 0, 0, 0, 0, 0, 320, 320, 0, 0, 0, 0, -2, 320, 0, 0, 0, 0, -1, 0 )
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "0Bullets"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "1 Bullet"
+length = 0.1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.025, 0.05, 0.075 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 40.5, 187.4, 297.6, 0.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "2 Bullet"
+length = 0.1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.025, 0.05, 0.075 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 40.5, 150.4, 253.3, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "3 Bullet"
+length = 0.1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 3 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.025, 0.05, 0.075 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 25.8, 121.3, 216.8, 0.0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "4 Bullet"
+length = 0.1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.025, 0.05, 0.075 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 29.4, 88.2, 176.4, 0.0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "5 Bullet"
+length = 0.1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.025, 0.05, 0.075 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 22.0, 88.1, 220.4, 0.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "6 Bullet"
+length = 0.1
+step = 0.025
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.025, 0.05, 0.075 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 36.7, 170.7, 251.5, 0.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[node name="World" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.521569 )
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 320.0
+margin_bottom = 320.0
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="StartPosition" type="Position2D" parent="."]
+position = Vector2( 156, 161 )
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 156, 160 )
+
+[node name="Cacti" type="YSort" parent="YSort"]
+
+[node name="Cactus2" parent="YSort/Cacti" instance=ExtResource( 9 )]
+position = Vector2( 70, 221 )
+
+[node name="Cactus" parent="YSort/Cacti" instance=ExtResource( 9 )]
+position = Vector2( 69, 82 )
+
+[node name="Cactus6" parent="YSort/Cacti" instance=ExtResource( 9 )]
+position = Vector2( 195, 279 )
+
+[node name="Cactus3" parent="YSort/Cacti" instance=ExtResource( 9 )]
+position = Vector2( 274, 136 )
+
+[node name="Cactus4" parent="YSort/Cacti" instance=ExtResource( 9 )]
+position = Vector2( 218, 62 )
+
+[node name="GhostPath" type="Path2D" parent="."]
+curve = SubResource( 6 )
+
+[node name="GhostSpawn" type="PathFollow2D" parent="GhostPath"]
+position = Vector2( -1, 0 )
+
+[node name="GhostTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="RangedGhostTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Chamber" type="Sprite" parent="."]
+position = Vector2( 153, 31 )
+scale = Vector2( 1.65625, 1.65625 )
+texture = ExtResource( 3 )
+hframes = 7
+script = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Chamber"]
+anims/0Bullets = SubResource( 1 )
+"anims/1 Bullet" = SubResource( 2 )
+"anims/2 Bullet" = SubResource( 4 )
+"anims/3 Bullet" = SubResource( 5 )
+"anims/4 Bullet" = SubResource( 7 )
+"anims/5 Bullet" = SubResource( 8 )
+"anims/6 Bullet" = SubResource( 9 )
+anims/RESET = SubResource( 3 )
+
+[node name="HUD" parent="." instance=ExtResource( 5 )]
+
+[node name="Score" parent="." instance=ExtResource( 7 )]
+
+[node name="DifficultyTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -7.0
+
+[node name="TumbleweedTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="player_dead" from="YSort/Player" to="." method="_on_Player_player_dead"]
+[connection signal="timeout" from="GhostTimer" to="." method="_on_GhostTimer_timeout"]
+[connection signal="timeout" from="RangedGhostTimer" to="." method="_on_RangedGhostTimer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="_on_HUD_start_game"]
+[connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]
+[connection signal="timeout" from="TumbleweedTimer" to="." method="_on_TumbleweedTimer_timeout"]

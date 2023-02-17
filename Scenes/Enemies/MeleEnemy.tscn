@@ -1,0 +1,230 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://Scenes/Hitboxes and Hurtboxes/Hurtbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Enemies/ghosts.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Shared/PlayerDetection.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Shared/Stats.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Shared/SoftCollision.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Shared/WanderController.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Shared/Enemy.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Hitboxes and Hurtboxes/Hitbox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/Audio/jump.wav" type="AudioStream" id=9]
+
+[sub_resource type="Shader" id=12]
+code = "shader_type canvas_item;
+
+uniform bool active = false;
+
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color    = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true) {
+		new_color = white_color;
+	}
+	COLOR = new_color;
+}"
+
+[sub_resource type="ShaderMaterial" id=13]
+resource_local_to_scene = true
+shader = SubResource( 12 )
+shader_param/active = false
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 5.54343
+height = 0.0
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 6.0
+height = 12.0
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 460.053
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 10.0499
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 6.0
+height = 6.0
+
+[sub_resource type="Animation" id=6]
+resource_name = "Die"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 26, 27, 35, 51, 59, 20, 28, 36 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.4 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "on_death_animation_finished"
+} ]
+}
+
+[sub_resource type="Animation" id=7]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 11, 0, 1 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+
+[sub_resource type="Animation" id=10]
+resource_name = "Start"
+length = 0.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=11]
+resource_name = "Stop"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[node name="MeleEnemy" type="KinematicBody2D" groups=["Enemies"]]
+collision_layer = 16
+script = ExtResource( 7 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 13 )
+position = Vector2( 0, 12 )
+scale = Vector2( 1, 0.938136 )
+texture = ExtResource( 2 )
+offset = Vector2( 0, -33 )
+hframes = 8
+vframes = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+scale = Vector2( -3.42748, 0.686316 )
+shape = SubResource( 1 )
+
+[node name="Hurtbox" parent="." instance=ExtResource( 1 )]
+visible = false
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox"]
+visible = false
+position = Vector2( 0, -17 )
+shape = SubResource( 2 )
+
+[node name="Stats" parent="." instance=ExtResource( 4 )]
+
+[node name="PlayerDetection" parent="." instance=ExtResource( 3 )]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="PlayerDetection" index="0"]
+visible = false
+shape = SubResource( 3 )
+
+[node name="WanderController" parent="." instance=ExtResource( 6 )]
+visible = false
+
+[node name="SoftCollision" parent="." instance=ExtResource( 5 )]
+visible = false
+collision_layer = 32
+collision_mask = 32
+
+[node name="CollisionShape2D" parent="SoftCollision" index="0"]
+shape = SubResource( 4 )
+
+[node name="Hitbox" parent="." instance=ExtResource( 8 )]
+visible = false
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+visible = false
+position = Vector2( 0, -17 )
+shape = SubResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Die = SubResource( 6 )
+anims/RESET = SubResource( 7 )
+anims/idle = SubResource( 8 )
+
+[node name="BlinkAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 9 )
+anims/Start = SubResource( 10 )
+anims/Stop = SubResource( 11 )
+
+[node name="DieNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -10.0
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
+[connection signal="invincibility_ended" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_ended"]
+[connection signal="invincibility_started" from="Hurtbox" to="." method="_on_Hurtbox_invincibility_started"]
+[connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]
+
+[editable path="PlayerDetection"]
+[editable path="SoftCollision"]
+[editable path="Hitbox"]

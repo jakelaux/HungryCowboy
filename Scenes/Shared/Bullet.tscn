@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Hitboxes and Hurtboxes/Hitbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/Shared/bullet.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Shared/Bullet.gd" type="Script" id=3]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 0.299998
+height = 0.800004
+
+[node name="Bullet" instance=ExtResource( 1 )]
+collision_layer = 0
+collision_mask = 13
+script = ExtResource( 3 )
+SPEED = 500
+DAMAGE = 1
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+position = Vector2( 0, 1.78814e-07 )
+scale = Vector2( 0.863839, 0.78125 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+rotation = 1.5708
+scale = Vector2( 10, 10 )
+shape = SubResource( 1 )
+one_way_collision_margin = 0.0
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="." index="2"]
+visible = false
+
+[connection signal="area_entered" from="." to="." method="_on_Bullet_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
